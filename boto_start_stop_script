@@ -2,7 +2,7 @@ import botocore
 import boto3
 
 
-rdsId = 'rdsaurora-uat-tmgcoreuat-databasecluster-1tjyexw8355iz'
+rdsId = 'ID of RDS'
 
 def stopRDS():
     rds = boto3.client('rds')
