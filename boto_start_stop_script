@@ -1,0 +1,21 @@
+import botocore
+import boto3
+
+
+rdsId = 'rdsaurora-uat-tmgcoreuat-databasecluster-1tjyexw8355iz'
+
+def stopRDS():
+    rds = boto3.client('rds')
+    instances = rds.describe_db_clusters( DBClusterIdentifier=rdsId)
+
+    status = instances.get('DBClusters')[0].get('Status')
+
+    if status == 'available':    
+        resp = rds.stop_db_cluster(DBClusterIdentifier=rdsId)
+        print('Requested to stop rds: ' + str(rdsId))  
+    else:
+        print('RDS ' + str(rdsId) + ' is ' + str(status))
+
+def lambda_handler(event, context):
+    stopRDS()
+    return 'Stopped environment.'
